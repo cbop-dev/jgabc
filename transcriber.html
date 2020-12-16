@@ -11,7 +11,7 @@
 
   gtag('config', 'UA-24502736-2');
 </script>
-  <title>GABC Transcription Tool</title>
+  <title>GABC Transcription Tool - CB modified!</title>
   <link rel="icon" href="icon/clear-main.png" type="image/png" />
   <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/mkhgaijffgijgkolifpoaijimncdakkd" />
   <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.10.3.custom.min.css" />
@@ -37,8 +37,56 @@
   Hypher.languages.pl.leftMin = 1;
   Hypher.languages.pl.rightMin = 1;
   </script>
+
+  <!-- CB custom code --> 
+  <!--<script src="js/pako.min.js"></script>-->
+  <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
+  
+  <script>
+    decoder = new TextDecoder('utf8');
+    encoder = new TextEncoder('utf8');
+
+	function GetURLParameter(sParam)
+	{
+		var sPageURL = window.location.search.substring(1);
+		var sURLVariables = sPageURL.split('&');
+		for (var i = 0; i < sURLVariables.length; i++)
+		{
+			var sParameterName = sURLVariables[i].split('=');
+			if (sParameterName[0] == sParam)
+			{
+				return sParameterName[1];
+			}
+		}	
+	}
+	function getURL() {
+		var gabc = $("#editor").val()
+		encoded = Base64.encode(gabc)
+		theurl = window.location.href.split('?')[0] + "?editor=" + encoded
+		window.prompt("Share Link", theurl);
+	}
+	function loadURLParams(){
+		$("#editor").html("Loading stuff now...")
+		var editText = Base64.decode(GetURLParameter("editor"))
+		/*var editText = 
+		btoa(pako.inflate(GetURLParameter("editor")))
+		*/
+		if (editText)
+		{	$("#editor").val(editText)
+			$("#editor").keyup()
+		}
+		/*window.alert("loading..." + editText)*/
+			
+	}
+	
+	
+	
+ </script>
+ <!-- /end CB custom code-->
+ 
+ 
 </head>
-<body class='sans' style='overflow:hidden;padding: 8px'>
+<body class='sans' style='overflow:hidden;padding: 8px' onload="loadURLParams();">
 <style>
 textarea{
   padding:0px;
@@ -148,6 +196,7 @@ textarea{
   <a href="#" id="lnkDownloadGabc" draggable target="_blank">Download Integrated GABC</a>&nbsp;
   <a href="#" id="lnkDownloadPng">Download PNG</a>&nbsp;
   <a href="#" id="lnkDownloadSvg">Download SVG</a>
+  <a href="#" id="lnkURL" onClick="getURL(); return false;">Share URL</a>
 </div>
 </div>
 <div id="chant-parent2">
@@ -181,4 +230,7 @@ textarea{
   </defs>
   </svg>
 </body>
+<!--<script>
+loadURLParams();
+</script>-->
 </html>
