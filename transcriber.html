@@ -206,6 +206,16 @@ textarea{
 </div>
 
 
+<a href="#" id="lnkURL" class="share-button" onClick="getURL(); return false;">Share URL</a>
+<div id="overlay">
+	<div id="shareURL-pop">
+		Share this Score:
+		<input readonly id="shareURL-txt">
+		
+		<button onclick="copyURL();">Copy URL</button>
+		<button onclick="$('#overlay').hide();">Close</button>
+	</div>
+</div>
 
 
 
@@ -245,17 +255,8 @@ textarea{
   <a href="#" id="lnkDownloadGabc" draggable target="_blank">Download Integrated GABC</a>&nbsp;
   <a href="#" id="lnkDownloadPng">Download PNG</a>&nbsp;
   <a href="#" id="lnkDownloadSvg">Download SVG</a>
-  <a href="#" id="lnkURL" class="share-button" onClick="getURL(); return false;">Share URL</a>
+  
 </div>
-</div>
-<div id="overlay">
-	<div id="shareURL-pop">
-		Share this Score:
-		<input readonly id="shareURL-txt">
-		
-		<button onclick="copyURL();">Copy URL</button>
-		<button onclick="$('#overlay').hide();">Close</button>
-	</div>
 </div>
 <div id="chant-parent2">
   <div id="chant-parent">
