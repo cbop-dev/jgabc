@@ -64,8 +64,9 @@
 		encoded = Base64.encode(gabc)
 		theurl = window.location.href.split('?')[0] + "?editor=" + encoded
 		/*window.prompt("Share Link", theurl);*/
-		$("#shareURL-txt").val(theurl)
+		$("#shareURL-txt").val(theurl);
 		$("#overlay").show();
+		selectURL();
 	}
 	function loadURLParams(){
 		$("#editor").html("Loading stuff now...")
@@ -80,10 +81,14 @@
 		/*window.alert("loading..." + editText)*/
 			
 	}
+	function selectURL()
+	{
+		$("#shareURL-txt").select(); //select the text area
+	}
 	function copyURL()
 	{
-		var copyTextarea = $("#shareURL-txt");
-		copyTextarea.select(); //select the text area
+		getURL();
+		selectURL();
 		document.execCommand("copy"); //copy to clipboard
 	}
 	
