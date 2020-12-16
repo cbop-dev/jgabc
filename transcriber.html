@@ -63,7 +63,9 @@
 		var gabc = $("#editor").val()
 		encoded = Base64.encode(gabc)
 		theurl = window.location.href.split('?')[0] + "?editor=" + encoded
-		window.prompt("Share Link", theurl);
+		/*window.prompt("Share Link", theurl);*/
+		$("#shareURL-txt").val(theurl)
+		$("#overlay").show();
 	}
 	function loadURLParams(){
 		$("#editor").html("Loading stuff now...")
@@ -78,10 +80,51 @@
 		/*window.alert("loading..." + editText)*/
 			
 	}
+	function copyURL()
+	{
+		var copyTextarea = $("#shareURL-txt");
+		copyTextarea.select(); //select the text area
+		document.execCommand("copy"); //copy to clipboard
+	}
 	
 	
 	
  </script>
+ <style>
+ #overlay {
+	display:none;
+	/* 
+	width:100%;
+	height:100%;
+	position:fixed;
+	background-color: rgba(0,0,0,0.5); 
+	z-index:10;
+	display:none;
+	*/
+ }
+ #shareURL-pop{
+	
+	/*margin:auto;
+	
+	position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+	*/
+	
+ }
+ 
+ .share-button {
+	font-weight:bold;
+	background-color: #eee;
+	color: black;
+	padding: 5px;
+	border: 1px solid black
+ }
+ </style>
  <!-- /end CB custom code-->
  
  
@@ -132,6 +175,7 @@ textarea{
   }
 }
 </style>
+
 <form id="pdfForm" target="_blank" method="get" action="https://editor.sourceandsummit.com/legacy/">
   <!--<input type='hidden' name='pdf' value='1'/>-->
   <input type='hidden' name='crop' value='0'/>
@@ -160,6 +204,11 @@ textarea{
     <a class='btn btn-xs btn-default' href='#' id='lnkPdf'>Further PDF options</a>
   </div>
 </div>
+
+
+
+
+
 <div style="width:100%;text-align:center;padding-bottom:4pt"><a href="#" id="lnkToggleMode">Show integrated GABC</a></div>
 <div id="blankSpace" style="height:193px;">
 
@@ -196,8 +245,17 @@ textarea{
   <a href="#" id="lnkDownloadGabc" draggable target="_blank">Download Integrated GABC</a>&nbsp;
   <a href="#" id="lnkDownloadPng">Download PNG</a>&nbsp;
   <a href="#" id="lnkDownloadSvg">Download SVG</a>
-  <a href="#" id="lnkURL" onClick="getURL(); return false;">Share URL</a>
+  <a href="#" id="lnkURL" class="share-button" onClick="getURL(); return false;">Share URL</a>
 </div>
+</div>
+<div id="overlay">
+	<div id="shareURL-pop">
+		Share this Score:
+		<input readonly id="shareURL-txt">
+		
+		<button onclick="copyURL();">Copy URL</button>
+		<button onclick="$('#overlay').hide();">Close</button>
+	</div>
 </div>
 <div id="chant-parent2">
   <div id="chant-parent">
